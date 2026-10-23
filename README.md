@@ -1,7 +1,50 @@
-
 # Meal Timer
-I have a problem where I am always snacking even though I am not really hungry. So I am building a personal swiftui app to help with that. So far I use the native countdown timer on my iPhone but the ios27 release made it slow and annoying. The way the app works is simple
-- User opens the app and it asks how long should a meal timer be set for. My default is 2hrs. Anytime I get the first hunger signal I can usually hold it in for 2 more hours.
-- We are also hinging on adaptation, if a user frequently extends the timer after the first 2 hours we increase the timer. if a user always ends the timer before the 2 hour threshold. we make it smaller
-- All data is local and does not leave the device.
-- We could use logic or local AI model for detecting the user's average count
+
+A small, private iOS app that helps you tell real hunger apart from the urge to snack.
+
+## Why
+
+I snack often when I'm not actually hungry. I've noticed that after the first hunger signal I can usually hold off for about two more hours. Until now I used the built-in iOS countdown timer for this, but since iOS 27 it has become slow and awkward. Meal Timer is a dedicated SwiftUI replacement built around that one habit.
+
+## How it works
+
+1. **Start at the first hunger signal.** Open the app and start a meal timer. The default is **2 hours**, and you can pick a different length.
+2. **Reach the target or extend it.** When the timer finishes you can eat, or extend by another round of the same length (for example, another 2 hours) if you're still fine.
+3. **See how long you held out.** When a session ends, the app shows the total time from start to finish across all rounds, e.g. *"You can clearly hold it off for 2h 30m."*
+4. **Ending early counts too.** Stopping before the target means you gave in and ate early. That's recorded so the app can adapt.
+
+### Adaptive timer length
+
+Once a week, Meal Timer looks at your recent sessions and adjusts the default length:
+
+- **Frequent extensions:** the default gets longer.
+- **Frequently giving in early:** the default gets shorter.
+
+Whether this uses simple rules or an on-device model is still open.
+
+### Live Activity
+
+The running timer is planned to show as a Live Activity on the Lock Screen and in the Dynamic Island, so you can check it without opening the app.
+
+## Privacy
+
+All data stays on your device. There's no account and no cloud sync, and nothing is sent over the network.
+
+## Requirements
+
+- iOS 27.0 or later
+- Xcode with Swift 5 language mode
+
+## Getting started
+
+```sh
+git clone https://github.com/Nelwhix/meal-timer.git
+cd meal-timer
+open meal-timer.xcodeproj
+```
+
+Then pick an iPhone simulator or device and run the app.
+
+## Status
+
+This is an early-stage personal side project. The repository currently contains the Xcode project scaffold, and the features above are being built step by step.
